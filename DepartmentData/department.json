@@ -1,0 +1,122 @@
+[
+  {
+    "code": "D001",
+    "name": "Finance",
+    "manager_name": "Alice Johnson",
+    "manager_email": "alice.johnson@example.com"
+  },
+  {
+    "code": "D002",
+    "name": "HR",
+    "manager_name": "Bob Smith",
+    "manager_email": "bob.smith@example.com"
+  },
+  {
+    "code": "D003",
+    "name": "IT Support",
+    "manager_name": "Carol Lee",
+    "manager_email": "carol.lee@example.com"
+  },
+  {
+    "code": "D004",
+    "name": "Development",
+    "manager_name": "David Kim",
+    "manager_email": "david.kim@example.com"
+  },
+  {
+    "code": "D005",
+    "name": "Marketing",
+    "manager_name": "Ella Turner",
+    "manager_email": "ella.turner@example.com"
+  },
+  {
+    "code": "D006",
+    "name": "Sales",
+    "manager_name": "Frank Miller",
+    "manager_email": "frank.miller@example.com"
+  },
+  {
+    "code": "D007",
+    "name": "Logistics",
+    "manager_name": "Grace Wilson",
+    "manager_email": "grace.wilson@example.com"
+  },
+  {
+    "code": "D008",
+    "name": "Procurement",
+    "manager_name": "Henry Davis",
+    "manager_email": "henry.davis@example.com"
+  },
+  {
+    "code": "D009",
+    "name": "Legal",
+    "manager_name": "Isabella Moore",
+    "manager_email": "isabella.moore@example.com"
+  },
+  {
+    "code": "D010",
+    "name": "Compliance",
+    "manager_name": "Jack Thompson",
+    "manager_email": "jack.thompson@example.com"
+  },
+  {
+    "code": "D011",
+    "name": "Customer Service",
+    "manager_name": "Karen Scott",
+    "manager_email": "karen.scott@example.com"
+  },
+  {
+    "code": "D012",
+    "name": "Security",
+    "manager_name": "Leo Brown",
+    "manager_email": "leo.brown@example.com"
+  },
+  {
+    "code": "D013",
+    "name": "QA",
+    "manager_name": "Mia Garcia",
+    "manager_email": "mia.garcia@example.com"
+  },
+  {
+    "code": "D014",
+    "name": "R&D",
+    "manager_name": "Noah Martinez",
+    "manager_email": "noah.martinez@example.com"
+  },
+  {
+    "code": "D015",
+    "name": "Training",
+    "manager_name": "Olivia Robinson",
+    "manager_email": "olivia.robinson@example.com"
+  },
+  {
+    "code": "D016",
+    "name": "Admin",
+    "manager_name": "Paul Clark",
+    "manager_email": "paul.clark@example.com"
+  },
+  {
+    "code": "D017",
+    "name": "Data Analytics",
+    "manager_name": "Quinn Lewis",
+    "manager_email": "quinn.lewis@example.com"
+  },
+  {
+    "code": "D018",
+    "name": "UX/UI",
+    "manager_name": "Rachel Hall",
+    "manager_email": "rachel.hall@example.com"
+  },
+  {
+    "code": "D019",
+    "name": "Architecture",
+    "manager_name": "Steve Allen",
+    "manager_email": "steve.allen@example.com"
+  },
+  {
+    "code": "D020",
+    "name": "Operations",
+    "manager_name": "Tina Young",
+    "manager_email": "tina.young@example.com"
+  }
+]
