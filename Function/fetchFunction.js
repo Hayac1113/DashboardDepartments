@@ -1,38 +1,33 @@
 document.addEventListener('DOMContentLoaded', () => {
-    fetchDepartmentData();
-});
-
-function fetchDepartmentData() {
-    fetch('DepartmentData/department.json')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            renderDepartments(data);
-        })
-        .catch(error => {
-            console.error('Error fetching department data:', error);
-            document.getElementById('departmentName').innerHTML = '<p>Error loading department data.</p>';
-        });
-}
-
-function renderDepartments(departments) {
-    const container = document.getElementById('departmentName');
-
-    if (!Array.isArray(departments) || departments.length === 0) {
-        container.innerHTML = '<p>No department data available.</p>';
-        return;
+    function fetchDepartmentData() {
+        fetch('./DepartmentData/department.json')
+            .then(response => response.json())
+            .then(data => renderName(data))
     }
 
-    container.innerHTML = departments.map(dept => `
-        <div class="department">
-            <p><strong>Code:</strong> ${dept.code}</p>
-            <p><strong>Name:</strong> ${dept.name}</p>
-            <p><strong>Manager:</strong> ${dept.manager_name}</p>
-            <p><strong>Email:</strong> <a href="mailto:${dept.manager_email}">${dept.manager_email}</a></p>
-        </div>
-    `).join('');
-}
+    function renderName(data) {
+        for (const department of data) {
+            // Find the container where the department name will be displayed
+            const departmentListItem = document.querySelector('#department-list-item');
+
+            // Create all the necessary elements
+            const departmentName = document.createElement('li');
+
+            // add classes and ids.
+            departmentName.className = 'department-name';
+
+            // Insert data into the elements
+            departmentName.innerHTML = `
+                <p><strong>Code:</strong> ${department.code}</p>
+                <p><strong>Name:</strong> ${department.name}</p>
+                <p><strong>Manager:</strong> ${department.manager_name}</p>
+                <p><strong>Email:</strong> <a href="mailto:${department.manager_email}">${department.manager_email}</a></p>
+            `;
+            // Append the department name to the list item
+            departmentListItem.appendChild(departmentName);
+        }
+    }
+
+    // Call the function to fetch and render department data
+    fetchDepartmentData();
+});
