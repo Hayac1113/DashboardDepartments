@@ -1,33 +1,72 @@
 document.addEventListener('DOMContentLoaded', () => {
-    function fetchDepartmentData() {
-        fetch('./DepartmentData/department.json')
+    function fetchJsonData(jsonPath, renderFunction) {
+        fetch(jsonPath)
             .then(response => response.json())
-            .then(data => renderName(data))
+            .then(data => renderFunction(data))
+            .catch(error => console.error("Fetch error:", error));
     }
 
-    function renderName(data) {
-        for (const department of data) {
-            // Find the container where the department name will be displayed
-            const departmentListItem = document.querySelector('#department-list-item');
-
-            // Create all the necessary elements
-            const departmentName = document.createElement('li');
-
-            // add classes and ids.
-            departmentName.className = 'department-name';
-
-            // Insert data into the elements
-            departmentName.innerHTML = `
-                <p><strong>Code:</strong> ${department.code}</p>
-                <p><strong>Name:</strong> ${department.name}</p>
-                <p><strong>Manager:</strong> ${department.manager_name}</p>
-                <p><strong>Email:</strong> <a href="mailto:${department.manager_email}">${department.manager_email}</a></p>
-            `;
-            // Append the department name to the list item
-            departmentListItem.appendChild(departmentName);
+    // Generic table render function
+    function renderTable(data) {
+        // Find or create a container for the table
+        let tableContainer = document.querySelector('#table-container');
+        if (!tableContainer) {
+            tableContainer = document.createElement('div');
+            tableContainer.id = 'table-container';
+            document.body.appendChild(tableContainer);
         }
+        tableContainer.innerHTML = ""; // Clear previous content
+
+        if (!Array.isArray(data) || data.length === 0) {
+            tableContainer.textContent = "No data available.";
+            return;
+        }
+
+        // Create table and header
+        const table = document.createElement('table');
+        table.border = '1';
+        table.style.borderCollapse = 'collapse';
+
+        const thead = document.createElement('thead');
+        const headerRow = document.createElement('tr');
+
+        // Get unique headers from all object keys
+        const headers = Array.from(
+            data.reduce((set, obj) => {
+                Object.keys(obj).forEach(key => set.add(key));
+                return set;
+            }, new Set())
+        );
+
+        // Create header cells
+        headers.forEach(key => {
+            const th = document.createElement('th');
+            th.textContent = key.charAt(0).toUpperCase() + key.slice(1);
+            th.style.padding = '5px';
+            headerRow.appendChild(th);
+        });
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        // Create body rows
+        const tbody = document.createElement('tbody');
+        data.forEach(item => {
+            const row = document.createElement('tr');
+            headers.forEach(key => {
+                const td = document.createElement('td');
+                td.textContent = item[key] !== undefined ? item[key] : '';
+                td.style.padding = '5px';
+                row.appendChild(td);
+            });
+            tbody.appendChild(row);
+        });
+        table.appendChild(tbody);
+
+        tableContainer.appendChild(table);
     }
 
-    // Call the function to fetch and render department data
-    fetchDepartmentData();
+    // Example usage with your JSON
+    fetchJsonData('./DepartmentData/department.json', renderTable);
+
+    // You can call fetchJsonData('path/to/any.json', renderTable);
 });
