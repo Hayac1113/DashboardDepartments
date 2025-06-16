@@ -2,3 +2,27 @@
     color: red;
     border: 1px solid red;
 }
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #888;
+    padding: 8px 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #f0f0f0;
+}
+
+th:hover {
+    background-color: #d4eaa0;
+}
+
+tr:nth-child(even) {
+    background-color: #fafafa;
+}

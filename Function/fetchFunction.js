@@ -1,36 +1,33 @@
+// Eventlistener for DOMContentLoad
 document.addEventListener('DOMContentLoaded', () => {
-    function fetchJsonData(jsonPath, renderFunction) {
-        fetch(jsonPath)
-            .then(response => response.json())
-            .then(data => renderFunction(data))
-            .catch(error => console.error("Fetch error:", error));
+    // Function to fetch JSON Data and render the data in a table
+    async function fetchJsonData(jsonPath, renderFunction) {
+        try {
+            const response = await fetch(jsonPath);
+            if (!response.ok) throw new Error('Network response was not ok');
+            const data = await response.json();
+            renderFunction(data);
+        } catch (error) {
+            console.error('Fetch error:', error);
+        }
     }
 
-    // Generic table render function
     function renderTable(data) {
-        // Find or create a container for the table
-        let tableContainer = document.querySelector('#table-container');
+        // Check if table-container exists or create it
+        let tableContainer = document.getElementById('table-container');
         if (!tableContainer) {
             tableContainer = document.createElement('div');
             tableContainer.id = 'table-container';
             document.body.appendChild(tableContainer);
         }
-        tableContainer.innerHTML = ""; // Clear previous content
+        tableContainer.innerHTML = "";
 
         if (!Array.isArray(data) || data.length === 0) {
             tableContainer.textContent = "No data available.";
             return;
         }
 
-        // Create table and header
-        const table = document.createElement('table');
-        table.border = '1';
-        table.style.borderCollapse = 'collapse';
-
-        const thead = document.createElement('thead');
-        const headerRow = document.createElement('tr');
-
-        // Get unique headers from all object keys
+        // Get all unique headers and put them in an array
         const headers = Array.from(
             data.reduce((set, obj) => {
                 Object.keys(obj).forEach(key => set.add(key));
@@ -38,24 +35,26 @@ document.addEventListener('DOMContentLoaded', () => {
             }, new Set())
         );
 
-        // Create header cells
+        const table = document.createElement('table');
+
+        // Create table head
+        const thead = document.createElement('thead');
+        const headerRow = document.createElement('tr');
         headers.forEach(key => {
             const th = document.createElement('th');
             th.textContent = key.charAt(0).toUpperCase() + key.slice(1);
-            th.style.padding = '5px';
             headerRow.appendChild(th);
         });
         thead.appendChild(headerRow);
         table.appendChild(thead);
 
-        // Create body rows
+        // Create table body
         const tbody = document.createElement('tbody');
         data.forEach(item => {
             const row = document.createElement('tr');
             headers.forEach(key => {
                 const td = document.createElement('td');
                 td.textContent = item[key] !== undefined ? item[key] : '';
-                td.style.padding = '5px';
                 row.appendChild(td);
             });
             tbody.appendChild(row);
@@ -65,8 +64,6 @@ document.addEventListener('DOMContentLoaded', () => {
         tableContainer.appendChild(table);
     }
 
-    // Example usage with your JSON
-    fetchJsonData('./DepartmentData/department.json', renderTable);
-
-    // You can call fetchJsonData('path/to/any.json', renderTable);
+    // Use your actual JSON path below:
+    fetchJsonData('/DepartmentData/users.json', renderTable);
 });
